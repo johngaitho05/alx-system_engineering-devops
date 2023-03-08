@@ -1,2 +1,3 @@
 #!/bin/bash
+mv 103-commas* 103-commas
 ls -a --classify --format='commas'
