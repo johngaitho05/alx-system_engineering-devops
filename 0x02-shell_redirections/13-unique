@@ -1,2 +1,2 @@
 #!/bin/bash
-grep -f <(sort test1 | uniq -u) test1
+sort | uniq -u
