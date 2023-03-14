@@ -1,2 +1,2 @@
 #!/bin/bash
-dc -e "$DECIMAL 16op"
+echo $((2#$BINARY))
