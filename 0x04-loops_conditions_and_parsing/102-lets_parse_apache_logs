@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# This script displays the content of an apache log file in the format IP: HTTP_CODE
+
+log_file="apache-access.log"
+
+# Use awk to extract and format the IP address and HTTP code
+awk '{print $1, $9}' "$log_file" | sed 's/"//g'
