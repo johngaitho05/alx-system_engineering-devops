@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# This script displays the content of an apache log file in the format:
+# OCCURRENCE_NUMBER IP HTTP_CODE
+
+awk '{
+    ip_http = $1 " " $9
+    count[ip_http]++
+} END {
+    for (ip_http in count) {
+        print count[ip_http], ip_http
+    }
+}' apache-access.log | sort -nr

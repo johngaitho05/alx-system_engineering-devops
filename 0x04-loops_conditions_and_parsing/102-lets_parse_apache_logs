@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
-# This script displays the content of an apache log file in the format IP: HTTP_CODE
+# This script displays the content of an apache log file in the format:
+# IP HTTP_CODE
 
 awk '{print $1" "$9}' apache-access.log
