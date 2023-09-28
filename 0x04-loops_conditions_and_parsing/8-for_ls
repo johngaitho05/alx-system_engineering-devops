@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# List files in the current directory by running the prefix before the first -
+for file in *; do
+    # Check if the file exists and is a regular file
+    if [ -f "$file" ]; then
+        # Extract the part of the name after the first dash
+        part_after_dash="${file#*-}"
+
+        # Print the extracted part
+        echo "$part_after_dash"
+    fi
+done
