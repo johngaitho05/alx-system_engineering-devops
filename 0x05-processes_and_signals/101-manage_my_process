@@ -3,26 +3,26 @@
 argv=$1
 tmpfile="/var/run/my_process.pid"
 
-startLoop()
+handle_start()
 {
     ./manage_my_process &
     echo "$!" > "$tmpfile"
 }
-killLoop()
+handle_kill()
 {
     sudo pkill -f "./manage_my_process"
     rm "$tmpfile"
 }
 case "$argv" in
     start) echo "manage_my_process started"
-	startLoop
+	handle_start
 	;;
     stop) echo "manage_my_process stopped"
-	killLoop
+	handle_kill
 	;;
     restart) echo "manage_my_process restarted"
-	killLoop
-	startLoop
+	handle_kill
+	handle_start
 	;;
     *) echo "Usage: manage_my_process {start|stop|restart}"
 	;;
