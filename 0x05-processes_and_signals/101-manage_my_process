@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 # This script manages manage_my_process
 argv=$1
-tmpfile="/var/run/my_process.pid"
+file="/var/run/my_process.pid"
 
 handle_start()
 {
     ./manage_my_process &
-    echo "$!" > "$tmpfile"
+    echo "$!" > "$file"
 }
 handle_kill()
 {
     sudo pkill -f "./manage_my_process"
-    rm "$tmpfile"
+    rm "$file"
 }
 case "$argv" in
     start) echo "manage_my_process started"
