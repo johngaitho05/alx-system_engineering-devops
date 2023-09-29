@@ -11,8 +11,10 @@ for pid_dir in /proc/*/; do
             # Extract the PID from the directory name
             pid=$(basename "$pid_dir")
 
-            # Print the PID and process name
-            echo "$pid $cmd_line"
+            if [ "$pid" -ne $$ ]; then
+              # Print the PID and process name
+              echo "$pid $cmd_line"
+            fi
         fi
     fi
 done
