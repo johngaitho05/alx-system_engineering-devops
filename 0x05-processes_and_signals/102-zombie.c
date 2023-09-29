@@ -1,7 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <sys/wait.h>
+
+/**
+ * infinite_while - endless loop
+ * Return: 0
+ */
+int infinite_while(void)
+{
+	while (1)
+	{
+		sleep(1);
+	}
+	return (0);
+}
 
 /**
  * main - zombies
@@ -22,5 +34,6 @@ int main(void)
 		else
 			exit(0);
 	}
+	infinite_while();
 	return (0);
 }
