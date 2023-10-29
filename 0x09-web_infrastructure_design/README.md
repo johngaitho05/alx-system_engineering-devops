@@ -3,7 +3,7 @@
 ## [0-simple_web_stack](0-simple_web_stack)
 - A simple web stack with 1 server
 - The server contains a web server (Nginx) which interacts with both the codebase (for static content) and application server (for dynamic content).
-- The application server communicates the database to process the business logic and prepare dynamic content to be sent back to the client
+- The application server communicates with the database to process the business logic and prepare dynamic content to be sent back to the client
 
 ![Simple Web Stack](https://res.cloudinary.com/da3jmmlpj/image/upload/v1698478767/ALX/Simple_web_stack_o9zwfp.jpg)
 
