@@ -1,32 +1,9 @@
 #!/usr/bin/env bash
-# This script installs nginx on the server it's executed on, sets listening
-# port as 80, creates a default html file that returns Hello World!, and adds a redirection rule
-
-# Update package list
-sudo apt-get update
-
-# Install Nginx
-sudo apt-get install -y nginx
-
-# Create a custom index.html file
-echo "Hello World!" | sudo tee /var/www/html/index.html
-
-# Configure Nginx to listen on port 80
-sudo sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
-
-# Add a redirection rule for /redirect_me/
-echo "
-server {
-    listen 80;
-    server_name _;
-
-    location /redirect_me {
-        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-    }
-
-    # ... existing configuration ...
-}
-" | sudo tee -a /etc/nginx/sites-available/default
-
-# Restart Nginx (without using systemctl)
-sudo /etc/init.d/nginx restart
+# Install nginx web server and configures it
+sudo apt-get update -y
+sudo apt install nginx -y
+sudo ufw allow 'Nginx HTTP'
+sudo service nginx start
+echo "Hello World!" > /usr/share/nginx/html/index.html
+sed -i "/listen 80 default_server/a rewrite ^/redirect_me https://www.youtube.com/watch?v=dQw4w9WgXcQ permanent;" /etc/nginx/sites-available/default
+sudo service nginx restart
