@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 # Install nginx web server
-sudo apt-get update -y
-sudo apt install nginx -y
-sudo ufw allow 'Nginx HTTP'
-sudo service nginx start
+apt-get update -y
+apt install nginx -y
+ufw allow 'Nginx HTTP'
+service nginx start
 echo "Hello World!" > /usr/share/nginx/html/index.html
+echo "Ceci n'est pas une page" > /usr/share/nginx/html/custom_404.html
 sed -i "/listen 80 default_server/a rewrite ^/redirect_me https://www.youtube.com/watch?v=dphzDKZa6xk permanent;" /etc/nginx/sites-available/default
 sed -i "/listen 80 default_server/a error_page 404 /custom_404.html; location = /custom_404.html { root /usr/share/nginx/html; internal; }" /etc/nginx/sites-available/default
-sudo service nginx restart
+service nginx restart
