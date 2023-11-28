@@ -1,25 +1,8 @@
-# File:   7-puppet_install_nginx_web_server.pp
-# Author: Alex Orland Arévalo Tribaldos
-# email:  <3915@holbertonschool.com>
-
-# Using Puppet| Install Nginx server, setup and configuration
-include stdlib
-package { 'nginx':
-  ensure => 'installed'
-}
-
-file { '/var/www/html/index.html':
-  content => 'Hello World',
-}
-
-file_line { 'redirection-301':
-  ensure => 'present',
-  path   => '/etc/nginx/sites-available/default',
-  after  => 'listen 80 default_server;',
-  line   => 'rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;',
-}
-
-service { 'nginx':
-  ensure  => running,
-  require => Package['nginx'],
-}
+# install nginx
+exec {'/usr/bin/env apt-get -y update': }
+exec {'/usr/bin/env apt-get -y install nginx': }
+exec {'/usr/bin/env echo "Holberton School" > /var/www/html/index.nginx-debian.html': }
+exec {'/usr/bin/env sed -i "/server_name _;/ a\\\trewrite ^/redirect_me http://www.holbertonschool.com permanent;" /etc/nginx/sites-available/default': }
+exec {'/usr/bin/env sed -i "/server_name _;/ a\\\terror_page 404 /custom_404.html;" /etc/nginx/sites-available/default': }
+exec {'/usr/bin/env echo "Ceci n\'est pas une page" > /var/www/html/custom_404.html': }
+exec {'/usr/bin/env service nginx start': }
