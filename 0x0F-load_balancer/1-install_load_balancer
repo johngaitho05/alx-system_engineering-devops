@@ -7,7 +7,7 @@ apt-get update -y
 apt-get install haproxy -y
 
 # Configure HAProxy
-bash -c 'cat <<EOL > /etc/haproxy/haproxy.cfg
+cat <<EOL > /etc/haproxy/haproxy.cfg
 global
     log /dev/log    local0
     log /dev/log    local1 notice
@@ -37,7 +37,7 @@ backend http_back
     balance roundrobin
     server web-01 52.23.178.146:80 check
     server web-02 100.26.223.57:80 check
-EOL'
+EOL
 
-# Restart HAProxy
+# Restart HAProxy using init script
 service haproxy restart
