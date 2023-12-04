@@ -1,10 +1,4 @@
 #!/usr/bin/env bash
-# Update package lists
-apt-get update -y
-
-# Install nginx web server
-apt-get install nginx -y
-
 # Configure nginx on port 80
 cat <<EOL > /etc/nginx/sites-available/default
 server {
@@ -32,15 +26,3 @@ server {
     }
 }
 EOL
-
-# Start nginx service
-service nginx start
-
-# Create index.html
-echo "Hello World!" > /usr/share/nginx/html/index.html
-
-# Create custom_404.html
-echo "Ceci n'est pas une page" > /usr/share/nginx/html/custom_404.html
-
-# Restart nginx to apply changes
-service nginx restart
