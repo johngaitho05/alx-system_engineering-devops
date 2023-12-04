@@ -1,17 +1,43 @@
 #!/usr/bin/env bash
-# Install and configure HAproxy on your lb-01 server
-sudo apt-get update
-sudo apt-get install --no-install-recommends software-properties-common -y
-sudo add-apt-repository ppa:vbernat/haproxy-2.6
-sudo apt-get install haproxy=2.6.\* -y
-sudo echo "frontend web
-bind *:80
-mode http
-default_backend web
+#This script installs and configures HAproxy so that it send traffic to web-01 and web-02
+# Update package lists
+apt-get update -y
 
-backend web
-balance roundrobin
-mode http
-server 325400-web-01 52.23.178.146:80 check
-server 325400-web-02 100.26.223.57:80 check" >> /etc/haproxy/haproxy.cfg
-sudo service haproxy restart
+# Install HAProxy
+apt-get install haproxy -y
+
+# Configure HAProxy
+cat <<EOL > /etc/haproxy/haproxy.cfg
+global
+    log /dev/log    local0
+    log /dev/log    local1 notice
+    chroot /var/lib/haproxy
+    stats socket /run/haproxy/admin.sock mode 660 level admin expose-fd listeners
+    stats timeout 30s
+    user haproxy
+    group haproxy
+    daemon
+
+defaults
+    log     global
+    mode    http
+    option  httplog
+    option  dontlognull
+    timeout connect 5000
+    timeout client  50000
+    timeout server  50000
+
+frontend http_front
+    bind *:80
+    stats uri /haproxy?stats
+
+    default_backend http_back
+
+backend http_back
+    balance roundrobin
+    server 325400-web-01 52.23.178.146:80 check
+    server 325400-web-02 100.26.223.57:80 check
+EOL
+
+# Restart HAProxy using init script
+service haproxy restart
