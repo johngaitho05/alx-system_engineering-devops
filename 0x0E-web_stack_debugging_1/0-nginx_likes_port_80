@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# This script installs nginx configures it to run on port 80
-apt-get update
-apt install nginx -y
-sed -i -e 's/8080/80/g' /etc/nginx/sites-enabled/default
-service nginx restart
+# Handles curl: (7) Failed to connect to 0 port 80: Connection refused
+sudo rm /etc/nginx/sites-enabled/default
+sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+sudo service nginx reload
+sudo service nginx restart
