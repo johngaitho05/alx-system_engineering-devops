@@ -1,0 +1,17 @@
+# Enable ufw
+sudo ufw enable
+
+# Deny all incoming traffic by default
+sudo ufw default deny incoming
+
+# Allow necessary ports
+sudo ufw allow 22/tcp     # Allow SSH (port 22)
+sudo ufw allow 443/tcp    # Allow HTTPS (port 443)
+sudo ufw allow 80/tcp     # Allow HTTP (port 80)
+
+# Redirect port 8080 to port 80
+sudo ufw route allow 8080    # Allow incoming traffic on port 8080
+sudo ufw route from 8080 to 80 proto tcp    # Redirect from port 8080 to port 80
+
+# Reload ufw to apply changes
+sudo ufw reload
