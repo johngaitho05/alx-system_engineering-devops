@@ -5,8 +5,10 @@ import requests
 import sys
 
 user_id = sys.argv[1]
-user_url = 'https://jsonplaceholder.typicode.com/users/{}'.format(user_id)
-todos_url = 'https://jsonplaceholder.typicode.com/users/{}/todos'.format(user_id)
+user_url = ('https://jsonplaceholder.typicode.com/users/{}'
+            .format(user_id))
+todos_url = ('https://jsonplaceholder.typicode.com/users/{}/todos'
+             .format(user_id))
 
 user = requests.get(user_url).json()
 tasks = requests.get(todos_url).json()
