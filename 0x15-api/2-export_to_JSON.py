@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-"""A REST API implementation to fetch employee info and save it to csv"""
+"""A REST API implementation to fetch employee info and save it to json file"""
 
-import csv
+import json
 import requests
 import sys
 
@@ -14,8 +14,11 @@ if __name__ == "__main__":
 
     user = requests.get(user_url).json()
     tasks = requests.get(todos_url).json()
-    with open('{}.csv'.format(user_id), 'w', ) as file:
-        csv_writer = csv.writer(file, quoting=csv.QUOTE_ALL)
-        data = [[user_id, user.get('username'), task.get('completed'),
-                 task.get('title')] for task in tasks]
-        csv_writer.writerows(data)
+    data = {user_id: [
+        {"task": task.get('title'),
+         "completed": task.get('completed'),
+         "username": user.get('username')}
+        for task in tasks]}
+
+    with open('{}.json'.format(user_id), 'w') as json_file:
+        json.dump(data, json_file)
