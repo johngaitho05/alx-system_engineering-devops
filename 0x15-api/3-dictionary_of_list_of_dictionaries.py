@@ -14,7 +14,6 @@ if __name__ == "__main__":
                      .format(user_id))
 
         tasks = requests.get(todos_url).json()
-        completed_tasks = list(filter(lambda t: t.get('completed'), tasks))
         data[user_id] = [{
             "username": user.get('username'),
             "task": task.get('title'),
