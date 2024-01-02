@@ -8,8 +8,6 @@ if __name__ == "__main__":
     data = {}
     for user in users:
         user_id = user.get('id')
-        user_url = ('https://jsonplaceholder.typicode.com/users/{}'
-                    .format(user_id))
         todos_url = ('https://jsonplaceholder.typicode.com/users/{}/todos'
                      .format(user_id))
 
