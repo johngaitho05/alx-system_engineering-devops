@@ -12,10 +12,10 @@ todos_url = ('https://jsonplaceholder.typicode.com/users/{}/todos'
 
 user = requests.get(user_url).json()
 tasks = requests.get(todos_url).json()
-completed_tasks = list(filter(lambda t: t['completed'], tasks))
+completed_tasks = list(filter(lambda t: t.get('completed'), tasks))
 
 print("Employee {} is done with tasks({}/{}):"
-      .format(user['name'], len(completed_tasks), len(tasks)))
+      .format(user.get('name'), len(completed_tasks), len(tasks)))
 
 for task in completed_tasks:
-    print("\t {}".format(task['title']))
+    print("\t {}".format(task.get('title')))
