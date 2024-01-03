@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""A REST API implementation to fetch employee todos and save it to json file"""
+"""A REST API implementation to fetch employee todos and save it to
+json file"""
 
 import json
 import requests
