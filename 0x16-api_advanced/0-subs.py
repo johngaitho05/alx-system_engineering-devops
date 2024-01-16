@@ -3,9 +3,9 @@
 import requests
 
 
-def number_of_subscribers(subreddit_name):
+def number_of_subscribers(subreddit):
     """Fetch reddit subs"""
-    url = f'https://www.reddit.com/r/{subreddit_name}/about.json'
+    url = f'https://www.reddit.com/r/{subreddit}/about.json'
     headers = {'User-Agent': 'gritnec/1.0 (by /u/johngaitho)'}
 
     try:
