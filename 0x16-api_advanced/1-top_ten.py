@@ -16,5 +16,3 @@ def top_ten(subreddit):
     else:
         print(None, response.status_code)
 
-
-top_ten('programming')
