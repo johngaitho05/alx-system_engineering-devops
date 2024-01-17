@@ -1,6 +1,9 @@
-# puppet manifest that fixes a faulty wordpress site
-exec { 'fix-wordpress':
-  command => 'bash -c "sed -i s/class-wp-locale.phpp/class-wp-locale.php/ \
-/var/www/html/wp-settings.php; service apache2 restart"',
-  path    => '/usr/bin:/usr/sbin:/bin'
+# Fix wordpress config file spelling mistake
+exec {'fix-wordpress':
+command => '/bin/sed -i "s/class-wp-locale.phpp/class-wp-locale.php/g" /var/www/html/wp-settings.php',
+notify  => Service['apache2'],
+}
 
+service {'apache2':
+ensure => 'running',
+}
